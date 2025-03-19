@@ -4,11 +4,9 @@
   "description": "A simple campground website built with Express and MongoDB.",
   "main": "app.js",
   "scripts": {
-  "start": "node app.js",
-  "dev": "nodemon app.js",
-  "build": "mkdir -p dist && cp -r ./* dist/ --exclude dist"
-}
-
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Iwuohacharles007/iwuohacharles007.github.io.git"
@@ -21,20 +19,23 @@
   },
   "homepage": "https://github.com/Iwuohacharles007/iwuohacharles007.github.io#readme",
   "dependencies": {
-    "express": "^4.17.1",
-    "mongoose": "^5.10.9",
+    "express": "^4.18.2",
+    "mongoose": "^7.0.0",
     "ejs": "^3.1.6",
-    "dotenv": "^8.2.0",
+    "dotenv": "^16.0.0",
     "joi": "^17.4.0",
     "connect-flash": "^0.1.1",
     "express-session": "^1.17.2",
     "method-override": "^3.0.0",
-    "ejs-mate": "^3.0.0"
+    "ejs-mate": "^3.0.0",
+    "cors": "^2.8.5"
   },
   "devDependencies": {
-    "nodemon": "^2.0.4"
+    "nodemon": "^3.0.0"
   },
   "engines": {
-    "node": "20.x"
-  }
+    "node": ">=18.0.0"
+  },
+  "private": true
 }
+
