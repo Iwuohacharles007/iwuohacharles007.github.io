@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "build":  "node app.js"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,6 @@
     "nodemon": "^2.0.4"
   },
   "engines": {
-    "node":  "22.x"
+    "node":  "20.x"
   }
 }
