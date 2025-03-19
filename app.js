@@ -11,7 +11,7 @@ const methodOverride = require('method-override');
 const flash = require('connect-flash');
 const session = require('express-session');
 const { campgroundSchema, reviewSchema } = require('./schemas'); // Import Joi validation schemas
-require('dotenv').config(); // Add dotenv to manage environment variables
+require('dotenv').config(); // Load environment variables
 
 // Get environment variables with fallbacks
 const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
@@ -40,7 +40,7 @@ const sessionConfig = {
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
-        expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1 week from now
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1 week
         maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
     }
 };
@@ -176,5 +176,5 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render('error', { statusCode, message });
 });
 
-// Start server
-app.listen(port, () => console.log(`Serving on port ${port}`));
+// Export app for Vercel
+module.exports = app;
