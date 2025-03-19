@@ -11,9 +11,15 @@ const methodOverride = require('method-override');
 const flash = require('connect-flash');
 const session = require('express-session');
 const { campgroundSchema, reviewSchema } = require('./schemas'); // Import Joi validation schemas
+require('dotenv').config(); // Add dotenv to manage environment variables
+
+// Get environment variables with fallbacks
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
+const sessionSecret = process.env.SESSION_SECRET || 'developmentSecretKey';
+const port = process.env.PORT || 3000;
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/yelp-camp', {
+mongoose.connect(dbUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
@@ -29,13 +35,13 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 const sessionConfig = {
-    secret: 'yourSecret',
+    secret: sessionSecret,
     resave: false,
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
-        expires: new Date('2025-02-14'), // Set expiration date to February 14, 2025
-        maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week (this line might be redundant if you want an exact expiry date)
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1 week from now
+        maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
     }
 };
 
@@ -141,7 +147,7 @@ app.post('/campgrounds/:id/reviews', validateReview, catchAsync(async (req, res)
         return res.redirect('/campgrounds');
     }
 
-    const review = new Review(req.body);
+    const review = new Review(req.body.review);
     campground.reviews.push(review);
 
     await review.save();
@@ -171,4 +177,4 @@ app.use((err, req, res, next) => {
 });
 
 // Start server
-app.listen(3000, () => console.log('Serving on port 3000'));
+app.listen(port, () => console.log(`Serving on port ${port}`));
